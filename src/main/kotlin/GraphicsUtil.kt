@@ -55,12 +55,13 @@ object GraphicsUtil {
     fun drawRobotVector(pose2d: Pose2d) {
         gc.globalAlpha = 0.75
 
-        val point1 = pose2d.vec()
+
         val v = pose2d.headingVec() * ROBOT_WIDTH / 2.0
-        val point2 = point1 + v
+        val point1 = pose2d.vec()
+        val point2 = point1 - v
 
         setColor(ROBOT_VECTOR_COLOR)
-        strokeLine(point1, point2)
+//        strokeLine(point1, point2)
 
         gc.globalAlpha = 0.75
     }
@@ -70,7 +71,7 @@ object GraphicsUtil {
         val pix_w = w * pixelsPerInch
         val pix_h = h * pixelsPerInch
 
-        gc.fillRect(center_pix.x - pix_w / 2.0, center_pix.y - pix_h / 2.0, pix_w, pix_h)
+        gc.fillRect(center_pix.x - pix_w / 2.0, center_pix.y , pix_w, pix_h)
     }
 
     fun updateRobotRect(rectangle: Rectangle, pose2d: Pose2d, color: Color, opacity: Double) {
@@ -81,7 +82,7 @@ object GraphicsUtil {
 
         val center_pix = pose2d.vec().toPixel
         rectangle.x = center_pix.x - pix_w / 2.0
-        rectangle.y = center_pix.y - pix_w / 2.0
+        rectangle.y = center_pix.y
         rectangle.fill = color
         rectangle.opacity = opacity
         rectangle.rotate = Math.toDegrees(-pose2d.heading)
