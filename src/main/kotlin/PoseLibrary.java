@@ -34,11 +34,10 @@ public class PoseLibrary {
     public static Pose2d parkingPose2_PathA = new Pose2d(15, 30, Math.toRadians(0.0));
 
     //PATH-B
-    public static Pose2d shootingPosePt1_PathB = new Pose2d (-24,21);
-    public static Pose2d shootingPosePt2_PathB = SHOOTING_POSE_BC;
+    public static Pose2d shootingPosePt1_PathB = new Pose2d (-10,17);
     public static Pose2d placeGoalPose_PathB = new Pose2d(22, 25, Math.toRadians(0.0));
-    public static Pose2d pickUpGoalPose1_PathB = new Pose2d(-20, 59, Math.toRadians(180.0));
-    public static  Pose2d pickUpGoalPose2_PathB = new Pose2d(-25, 59, Math.toRadians(180.0));
+    public static Pose2d pickUpGoalAndRingPose1_PathB = new Pose2d(-8, 36, Math.toRadians(180));
+    public static Pose2d pickUpGoalAndRingPose2_PathB = new Pose2d(-24, 40, Math.toRadians(125.0));
     public static Pose2d placeSecondGoalPose1_PathB = new Pose2d(27, 57, Math.toRadians(0.0));
     public static Pose2d placeSecondGoalPose2_PathB = new Pose2d(23, 33, Math.toRadians(0.0));
     public static Pose2d parkPose_PathB = new Pose2d(17, 27, Math.toRadians(0.0));

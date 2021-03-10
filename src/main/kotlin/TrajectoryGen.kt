@@ -34,59 +34,65 @@ object TrajectoryGen {
             .splineTo(placeGoalAndShootingPose1_PathA.vec(), placeGoalAndShootingPose1_PathA.heading)
             .build()
 
-        var goToShootingPosePt2_A = TrajectoryBuilder(PoseLibrary.placeGoalAndShootingPose1_PathA, PoseLibrary.placeGoalAndShootingPose1_PathA.heading, combinedConstraints )
+        var goToShootingPosePt2_A = TrajectoryBuilder(goToShootingPosePt1_A.end(), goToShootingPosePt1_A.end().heading, combinedConstraints )
             .splineTo(placeGoalAndShootingPose2_PathA.vec(), placeGoalAndShootingPose2_PathA.heading)
             .build()
 
-        var goToPickUpGoalPose1_A = TrajectoryBuilder(placeGoalAndShootingPose2_PathA, placeGoalAndShootingPose2_PathA.heading,combinedConstraints)
+        var goToPickUpGoalPose1_A = TrajectoryBuilder(goToShootingPosePt2_A.end(), goToShootingPosePt2_A.end().heading,combinedConstraints)
             .lineToLinearHeading(pickUpGoalPose1_PathA)
             .build()
 
-        var goToPickUpGoalPose2_A = TrajectoryBuilder(pickUpGoalPose1_PathA, pickUpGoalPose1_PathA.heading, combinedConstraints)
+        var goToPickUpGoalPose2_A = TrajectoryBuilder(goToPickUpGoalPose1_A.end(), goToPickUpGoalPose1_A.end().heading, combinedConstraints)
             .lineToConstantHeading(pickUpGoalPose2_PathA.vec())
             .build()
 
 
-        var goToPlaceSecondGoalPart1_A = TrajectoryBuilder(pickUpGoalPose2_PathA, pickUpGoalPose2_PathA.heading, combinedConstraints)
+        var goToPlaceSecondGoalPart1_A = TrajectoryBuilder(goToPickUpGoalPose2_A.end(), goToPickUpGoalPose2_A.end().heading, combinedConstraints)
             .lineToSplineHeading(placeSecondGoalPose_PathA)
             .build()
 
-        var goToParkingPosePt1_A = TrajectoryBuilder(placeSecondGoalPose_PathA, placeSecondGoalPose_PathA.heading, combinedConstraints)
+        var goToParkingPosePt1_A = TrajectoryBuilder(goToPlaceSecondGoalPart1_A.end(), goToPlaceSecondGoalPart1_A.end().heading, combinedConstraints)
             .lineToConstantHeading(parkingPose1_PathA.vec())
             .build()
 
-        var goToParkingPosePt2_A = TrajectoryBuilder(parkingPose1_PathA, parkingPose1_PathA.heading, combinedConstraints)
+        var goToParkingPosePt2_A = TrajectoryBuilder(goToParkingPosePt1_A.end(), goToParkingPosePt1_A.end().heading, combinedConstraints)
             .lineToConstantHeading(parkingPose2_PathA.vec())
             .build()
 
         // Path-B
-        var goToShootingPosePt1_B = TrajectoryBuilder(PoseLibrary.START_POS_BLUE_2, PoseLibrary.START_POS_BLUE_2.heading, combinedConstraints )
-            .splineTo(shootingPosePt1_PathB.vec(), shootingPosePt1_PathB.heading)
-            .splineTo(shootingPosePt2_PathB.vec(), shootingPosePt2_PathB.heading)
+        var goToPowerShotPosePt1_B = TrajectoryBuilder(PoseLibrary.START_POS_BLUE_2, PoseLibrary.START_POS_BLUE_2.heading, combinedConstraints )
+            .splineTo(POWER_SHOT_POSE_3.vec(), POWER_SHOT_POSE_3.heading)
             .build()
 
-        var goToPlaceGoalPose_B = TrajectoryBuilder(shootingPosePt2_PathB, shootingPosePt2_PathB.heading, combinedConstraints )
+        var goToPowerShotPosePt2_B = TrajectoryBuilder(goToPowerShotPosePt1_B.end(), goToPowerShotPosePt1_B.end().heading, combinedConstraints )
+            .lineToConstantHeading(POWER_SHOT_POSE_2.vec())
+            .build()
+
+
+        var goToPowerShotPosePt3_B = TrajectoryBuilder(goToPowerShotPosePt2_B.end(), goToPowerShotPosePt2_B.end().heading, combinedConstraints )
+            .lineToConstantHeading(POWER_SHOT_POSE_1.vec())
+            .build()
+
+        var goToPlaceGoalPose_B = TrajectoryBuilder(goToPowerShotPosePt3_B.end(), goToPowerShotPosePt3_B.end().heading, combinedConstraints )
             .splineTo(placeGoalPose_PathB.vec(), placeGoalPose_PathB.heading)
             .build()
 
-        var goToPickUpGoalPose1_B = TrajectoryBuilder(placeGoalPose_PathB, placeGoalPose_PathB.heading,combinedConstraints)
-            .lineToLinearHeading(pickUpGoalPose1_PathB)
-            .build()
-
-        var goToPickUpGoalPose2_B = TrajectoryBuilder(pickUpGoalPose1_PathB, pickUpGoalPose1_PathB.heading, combinedConstraints)
-            .lineToConstantHeading(pickUpGoalPose2_PathB.vec())
+        var goToPickUpRingAndGoalPose_B = TrajectoryBuilder(goToPlaceGoalPose_B.end(), goToPlaceGoalPose_B.end().heading,combinedConstraints)
+            .splineTo(pickUpGoalAndRingPose1_PathB.vec(), pickUpGoalAndRingPose1_PathB.heading)
+            .splineTo(pickUpGoalAndRingPose2_PathB.vec(), pickUpGoalAndRingPose2_PathB.heading)
             .build()
 
 
-        var goToPlaceSecondGoalPart1_B = TrajectoryBuilder(pickUpGoalPose2_PathB, pickUpGoalPose2_PathB.heading, combinedConstraints)
-            .lineToSplineHeading(placeSecondGoalPose1_PathB)
+        var goToShootingPose_B = TrajectoryBuilder(goToPickUpRingAndGoalPose_B.end(), goToPickUpRingAndGoalPose_B.end().heading,  combinedConstraints)
+            .lineToSplineHeading(SHOOTING_POSE_BC)
             .build()
 
-        var goToPlaceSecondGoalPart2_B = TrajectoryBuilder(placeSecondGoalPose1_PathB, placeSecondGoalPose1_PathB.heading, combinedConstraints)
-            .lineToConstantHeading(placeSecondGoalPose2_PathB.vec())
+        var goToPlaceSecondGoalPart1_B = TrajectoryBuilder(goToShootingPose_B.end(), goToShootingPose_B.end().heading,  combinedConstraints)
+            .lineToSplineHeading(placeSecondGoalPose2_PathB)
             .build()
 
-        var goToParkingPose_B = TrajectoryBuilder(placeSecondGoalPose2_PathB, placeSecondGoalPose2_PathB.heading, combinedConstraints)
+
+        var goToParkingPose_B = TrajectoryBuilder(goToPlaceSecondGoalPart1_B.end(), goToPlaceSecondGoalPart1_B.end().heading, combinedConstraints)
             .lineToConstantHeading(parkPose_PathB.vec())
             .build()
 
@@ -121,21 +127,22 @@ object TrajectoryGen {
 
         blue2_A.add(goToShootingPosePt1_A)
         blue2_A.add(goToShootingPosePt2_A)
-       // blue2_A.add(goToPickUpGoalPose1_A)
-       // blue2_A.add(goToPickUpGoalPose2_A)
-       // blue2_A.add(goToPlaceSecondGoalPart1_A)
-       // blue2_A.add(goToParkingPosePt1_A)
-       // blue2_A.add(goToParkingPosePt2_A)
+        blue2_A.add(goToPickUpGoalPose1_A)
+        blue2_A.add(goToPickUpGoalPose2_A)
+        blue2_A.add(goToPlaceSecondGoalPart1_A)
+        blue2_A.add(goToParkingPosePt1_A)
+        blue2_A.add(goToParkingPosePt2_A)
 
 
 
 
-        blue2_B.add(goToShootingPosePt1_B)
+        blue2_B.add(goToPowerShotPosePt1_B)
+        blue2_B.add(goToPowerShotPosePt2_B)
+        blue2_B.add(goToPowerShotPosePt3_B)
         blue2_B.add(goToPlaceGoalPose_B)
-        blue2_B.add(goToPickUpGoalPose1_B)
-        blue2_B.add(goToPickUpGoalPose2_B)
+        blue2_B.add(goToPickUpRingAndGoalPose_B)
+        blue2_B.add(goToShootingPose_B)
         blue2_B.add(goToPlaceSecondGoalPart1_B)
-        blue2_B.add(goToPlaceSecondGoalPart2_B)
         blue2_B.add(goToParkingPose_B)
 
 
@@ -146,7 +153,7 @@ object TrajectoryGen {
         blue2_C.add(goToPlaceSecondGoalPart1_C)
         blue2_C.add(goToParkingPose_C)
 
-        return blue2_C
+        return blue2_B
     }
 
     fun drawOffbounds() {
